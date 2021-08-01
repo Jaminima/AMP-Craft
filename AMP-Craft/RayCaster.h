@@ -16,8 +16,8 @@ public:
 	float half_vw = view_width / 2, half_vh = view_height / 2;
 
 	SteppedRay CreateRay(unsigned int vx, unsigned int vy) {
-		float vx_angle = -(fov_half_angle * (1-(vx / half_vw)));
-		float vy_angle = fov_half_angle * (1-(vy / half_vh));
+		float vx_angle = -(fov_half_angle * (1 - (vx / half_vw)));
+		float vy_angle = fov_half_angle * (1 - (vy / half_vh));
 
 		return SteppedRay(Vec3(), Vec3(sin(angleToRadians(vx_angle)), sin(angleToRadians(vy_angle)), cos(angleToRadians(vx_angle))));
 	}

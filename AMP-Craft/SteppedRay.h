@@ -8,7 +8,7 @@ class SteppedRay :
 public:
 	float direction_mul = 1;
 
-	SteppedRay():Ray(Vec3(),Vec3()){}
+	SteppedRay() :Ray(Vec3(), Vec3()) {}
 
 	SteppedRay(Vec3 _origin, Vec3 _direction) : Ray(_origin, _direction) {
 		_direction.ensureNormalised();
