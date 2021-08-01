@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Cube.h" />
     <ClInclude Include="RayCaster.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="SteppedRay.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Ray.h" />
