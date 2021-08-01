@@ -29,5 +29,8 @@
     <ClInclude Include="SteppedRay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RayCaster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

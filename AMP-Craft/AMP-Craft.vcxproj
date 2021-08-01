@@ -142,6 +142,7 @@
     <ClCompile Include="AMP-Craft.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RayCaster.h" />
     <ClInclude Include="SteppedRay.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Ray.h" />
