@@ -141,6 +141,11 @@
   <ItemGroup>
     <ClCompile Include="AMP-Craft.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SteppedRay.h" />
+    <ClInclude Include="Vec3.h" />
+    <ClInclude Include="Ray.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
