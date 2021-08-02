@@ -1,6 +1,7 @@
 #ifndef __RayCaster
 #define __RayCaster
 #include "SteppedRay.h"
+#include "Window.h"
 
 class RayCaster
 {
@@ -11,7 +12,7 @@ public:
 
 	float fov_angle = 90, fov_radians = angleToRadians(fov_angle), fov_half_angle = fov_angle / 2;
 
-	unsigned int view_width = 800, view_height = 600;
+	unsigned int view_width = getWindowWidth(), view_height = getWindowHeight();
 
 	float half_vw = view_width / 2, half_vh = view_height / 2;
 

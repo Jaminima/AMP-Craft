@@ -1,7 +1,7 @@
 #include <iostream>
-#include "RayCaster.h"
+#include "Window.h"
 
-int main()
+int main(int argc, char** argv)
 {
 	std::cout << "Hello World!\n";
 	/*SteppedRay r(Vec3(0, 0, 0), Vec3(0.2f, 0.5f, 0.7f));
@@ -11,6 +11,8 @@ int main()
 		p = r.GetNextPoint();
 	}*/
 
-	RayCaster r;
-	SteppedRay* rays = r.CreateAllViewRays();
+	/*RayCaster r;
+	SteppedRay* rays = r.CreateAllViewRays();*/
+
+	initWindow(argc, argv);
 }
