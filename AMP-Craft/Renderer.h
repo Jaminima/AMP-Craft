@@ -3,14 +3,16 @@
 #include "World.h"
 #include "RayCaster.h"
 #include "Color.h"
+#include "Camera.h"
 class Renderer
 {
 public:
 	RayCaster caster;
 	World world;
+	Camera camera;
 
 	Color* RenderRays() {
-		SteppedRay* rays = caster.CreateAllViewRays(Vec3(5,5,0));
+		SteppedRay* rays = caster.CreateAllViewRays(camera);
 		Color* View = new Color[caster.view_height * caster.view_width];
 
 		SteppedRay* ray;

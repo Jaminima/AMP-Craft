@@ -146,6 +146,7 @@
     <ClInclude Include="..\packages\freeglut.2.8.1.15\build\native\include\GL\freeglut_ext.h" />
     <ClInclude Include="..\packages\freeglut.2.8.1.15\build\native\include\GL\freeglut_std.h" />
     <ClInclude Include="..\packages\freeglut.2.8.1.15\build\native\include\GL\glut.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="RayCaster.h" />

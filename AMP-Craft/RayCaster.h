@@ -1,6 +1,7 @@
 #ifndef __RayCaster
 #define __RayCaster
 #include "SteppedRay.h"
+#include "Camera.h"
 
 class RayCaster
 {
@@ -18,17 +19,17 @@ public:
 
 	float half_vw = view_width / 2, half_vh = view_height / 2;
 
-	SteppedRay CreateRay(unsigned int vx, unsigned int vy, Vec3 origin) {
+	SteppedRay CreateRay(unsigned int vx, unsigned int vy, Camera cam) {
 		float vx_angle = -(fov_sin_max * (1 - (vx / half_vw)));
 		float vy_angle = -(fov_sin_max * (1 - (vy / half_vh)));
 
-		return SteppedRay(origin, Vec3(vx_angle, vy_angle, 1));
+		return SteppedRay(cam.Position, cam.RotateDirection(Vec3(vx_angle, vy_angle, 1)));
 	}
 
-	SteppedRay* CreateAllViewRays(Vec3 origin) {
+	SteppedRay* CreateAllViewRays(Camera cam) {
 		SteppedRay* rays = new SteppedRay[view_height * view_width];
 		for (unsigned int vx = 0, vy = 0; vy < view_height;) {
-			rays[(vy*view_width) + vx] = CreateRay(vx, vy, origin);
+			rays[(vy*view_width) + vx] = CreateRay(vx, vy, cam);
 
 			vx++;
 			if (vx == view_width) { vx = 0; vy++; }
