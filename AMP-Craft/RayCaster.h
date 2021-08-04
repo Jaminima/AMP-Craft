@@ -18,17 +18,17 @@ public:
 
 	float half_vw = view_width / 2, half_vh = view_height / 2;
 
-	SteppedRay CreateRay(unsigned int vx, unsigned int vy) {
+	SteppedRay CreateRay(unsigned int vx, unsigned int vy, Vec3 origin) {
 		float vx_angle = -(fov_sin_max * (1 - (vx / half_vw)));
-		float vy_angle = fov_sin_max * (1 - (vy / half_vh));
+		float vy_angle = -(fov_sin_max * (1 - (vy / half_vh)));
 
-		return SteppedRay(Vec3(), Vec3(vx_angle, vy_angle, 1));
+		return SteppedRay(origin, Vec3(vx_angle, vy_angle, 1));
 	}
 
-	SteppedRay* CreateAllViewRays() {
+	SteppedRay* CreateAllViewRays(Vec3 origin) {
 		SteppedRay* rays = new SteppedRay[view_height * view_width];
 		for (unsigned int vx = 0, vy = 0; vy < view_height;) {
-			rays[(vy*view_width) + vx] = CreateRay(vx, vy);
+			rays[(vy*view_width) + vx] = CreateRay(vx, vy, origin);
 
 			vx++;
 			if (vx == view_width) { vx = 0; vy++; }

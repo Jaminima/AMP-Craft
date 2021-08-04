@@ -10,7 +10,7 @@ public:
 	World world;
 
 	Color* RenderRays() {
-		SteppedRay* rays = caster.CreateAllViewRays();
+		SteppedRay* rays = caster.CreateAllViewRays(Vec3(5,5,0));
 		Color* View = new Color[caster.view_height * caster.view_width];
 
 		SteppedRay* ray;
