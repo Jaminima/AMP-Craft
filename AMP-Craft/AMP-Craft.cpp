@@ -14,5 +14,11 @@ int main(int argc, char** argv)
 	/*RayCaster r;
 	SteppedRay* rays = r.CreateAllViewRays();*/
 
+	Cube c;
+	c.type = Solid;
+	renderer.world.SetCube(1, 2, 6, c);
+	renderer.world.SetCube(3, 2, 6, c);
+	renderer.world.SetCube(5, 2, 6, c);
+
 	initWindow(argc, argv);
 }

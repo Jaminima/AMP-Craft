@@ -5,22 +5,26 @@
 #include "GL/freeglut.h"
 
 #include "Renderer.h"
+#include "Color.h"
 
 Renderer renderer;
 
 unsigned int defaultWidth = 800, defaultHeight = 600;
 
 unsigned int getWindowHeight() {
-	return GLUT_WINDOW_HEIGHT;
+	return defaultHeight;
 }
 
 unsigned int getWindowWidth() {
-	return GLUT_WINDOW_WIDTH;
+	return defaultWidth;
 }
 
 void drawFrame()
 {
-	bool* view = renderer.RenderRays();
+	Color* view = renderer.RenderRays();
+
+	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, view);
+
 	glutSwapBuffers();
 }
 

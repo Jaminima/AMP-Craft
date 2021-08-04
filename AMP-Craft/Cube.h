@@ -8,6 +8,6 @@ enum CubeType {
 class Cube
 {
 public:
-	CubeType type = Solid;
+	CubeType type = None;
 };
 #endif
