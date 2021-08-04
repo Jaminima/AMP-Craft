@@ -6,10 +6,12 @@
 
 #include "Renderer.h"
 #include "Color.h"
+#include "Inputs.h"
 
 Renderer renderer;
 
 unsigned int defaultWidth = 800, defaultHeight = 600;
+unsigned int half_defaultWidth = 400, half_defaultHeight = 300;
 
 unsigned int getWindowHeight() {
 	return defaultHeight;
@@ -41,8 +43,14 @@ void initWindow(int argc, char** argv) {
 	glutDisplayFunc(drawFrame);
 	//glutIdleFunc(triggerReDraw);
 
-	/*glutPassiveMotionFunc(MouseMove);
-	glutKeyboardFunc(KeyboardDepressed);*/
+	glutWarpPointer(half_defaultWidth, half_defaultHeight);
+
+	input_main_camera = &renderer.camera;
+	input_view_width = &half_defaultWidth;
+	input_view_height = &half_defaultHeight;
+
+	glutPassiveMotionFunc(MouseMove);
+	glutKeyboardFunc(KeyboardDepressed);
 
 	glutMainLoop();
 }
