@@ -16,9 +16,9 @@ int main(int argc, char** argv)
 
 	Cube c;
 	c.type = Solid;
-	renderer.world.SetCube(1, 2, 6, c);
-	renderer.world.SetCube(3, 2, 6, c);
-	renderer.world.SetCube(5, 2, 6, c);
+	renderer.world.SetCube(1, 2, 8, c);
+	renderer.world.SetCube(3, 2, 8, c);
+	renderer.world.SetCube(5, 2, 8, c);
 
 	initWindow(argc, argv);
 }

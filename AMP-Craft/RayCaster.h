@@ -11,15 +11,18 @@ public:
 
 	float fov_angle = 90, fov_radians = angleToRadians(fov_angle), fov_half_angle = fov_angle / 2;
 
+	float fov_sin_max = sin(angleToRadians(fov_half_angle)),
+		fov_cos_max = cos(angleToRadians(fov_half_angle));
+
 	unsigned int view_width = 800, view_height = 600;
 
 	float half_vw = view_width / 2, half_vh = view_height / 2;
 
 	SteppedRay CreateRay(unsigned int vx, unsigned int vy) {
-		float vx_angle = -(fov_half_angle * (1 - (vx / half_vw)));
-		float vy_angle = fov_half_angle * (1 - (vy / half_vh));
+		float vx_angle = -(fov_sin_max * (1 - (vx / half_vw)));
+		float vy_angle = fov_sin_max * (1 - (vy / half_vh));
 
-		return SteppedRay(Vec3(), Vec3(sin(angleToRadians(vx_angle)), sin(angleToRadians(vy_angle)), cos(angleToRadians(vx_angle))));
+		return SteppedRay(Vec3(), Vec3(vx_angle, vy_angle, 1));
 	}
 
 	SteppedRay* CreateAllViewRays() {

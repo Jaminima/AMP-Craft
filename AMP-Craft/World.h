@@ -20,9 +20,6 @@ public:
 
 	int getIndex(unsigned int x, unsigned int y, unsigned int z) {
 		int idx = ((y * blocks_long) + z) * blocks_wide + x;
-		if (idx == 2551) {
-			idx = idx;
-		}
 		return idx;
 	}
 
