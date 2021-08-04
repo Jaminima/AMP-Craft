@@ -7,7 +7,7 @@ const float Pi = 3.14f, Pi2 = Pi * 2;
 class Camera
 {
 public:
-	Vec3 Position = Vec3(5.0f,5.0f,0.0f), Angle;
+	Vec3 Position = Vec3(5.0f,5.0f,0.0f), Angle = Vec3(0,0,0);
 
 	float cosx, cosy, cosz, sinx, siny, sinz;
 
