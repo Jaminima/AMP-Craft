@@ -9,9 +9,20 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Header Files\GL">
+      <UniqueIdentifier>{173a3b92-e164-41d6-b160-89e49244f9f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{d81f08d6-d115-440c-9054-1a33f51e06d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering">
+      <UniqueIdentifier>{e10e9244-fef6-4ddf-8f58-873b4efba804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Window">
+      <UniqueIdentifier>{21bd709b-4209-418a-ad7c-921e62011dcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GL-Compilation">
+      <UniqueIdentifier>{95bae89f-71a5-4c98-bff1-c4023f5324a2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -20,26 +31,66 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vec3.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\packages\freeglut.2.8.1.15\build\native\include\GL\freeglut.h">
+      <Filter>Header Files\GL</Filter>
     </ClInclude>
-    <ClInclude Include="Ray.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\packages\freeglut.2.8.1.15\build\native\include\GL\freeglut_ext.h">
+      <Filter>Header Files\GL</Filter>
     </ClInclude>
-    <ClInclude Include="SteppedRay.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\packages\freeglut.2.8.1.15\build\native\include\GL\freeglut_std.h">
+      <Filter>Header Files\GL</Filter>
     </ClInclude>
-    <ClInclude Include="RayCaster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\packages\freeglut.2.8.1.15\build\native\include\GL\glut.h">
+      <Filter>Header Files\GL</Filter>
     </ClInclude>
     <ClInclude Include="Cube.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCaster.h">
+      <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="SteppedRay.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\packages\freeglut.2.8.1.15\build\native\lib\v110\x64\Release\dynamic\freeglut.lib">
+      <Filter>GL-Compilation</Filter>
+    </Library>
+    <Library Include="..\packages\freeglut.2.8.1.15\build\native\lib\v110\x64\Release\ltcg\freeglut.lib">
+      <Filter>GL-Compilation</Filter>
+    </Library>
+    <Library Include="..\packages\freeglut.2.8.1.15\build\native\lib\v110\x64\Release\static\freeglut.lib">
+      <Filter>GL-Compilation</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\packages\freeglut.redist.2.8.1.15\build\native\bin\v110\x64\Release\dynamic\freeglut.dll">
+      <Filter>GL-Compilation</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

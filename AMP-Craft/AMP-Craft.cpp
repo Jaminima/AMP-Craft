@@ -1,7 +1,7 @@
 #include <iostream>
-#include "RayCaster.h"
+#include "Window.h"
 
-int main()
+int main(int argc, char** argv)
 {
 	std::cout << "Hello World!\n";
 	/*SteppedRay r(Vec3(0, 0, 0), Vec3(0.2f, 0.5f, 0.7f));
@@ -11,6 +11,18 @@ int main()
 		p = r.GetNextPoint();
 	}*/
 
-	RayCaster r;
-	SteppedRay* rays = r.CreateAllViewRays();
+	/*RayCaster r;
+	SteppedRay* rays = r.CreateAllViewRays();*/
+
+	Cube c;
+	c.type = Solid;
+	renderer.world.SetCube(2, 2, 8, c);
+	renderer.world.SetCube(4, 2, 8, c);
+	renderer.world.SetCube(6, 2, 8, c);
+
+	renderer.world.SetCube(1, 5, 8, c);
+	renderer.world.SetCube(3, 5, 8, c);
+	renderer.world.SetCube(5, 5, 8, c);
+
+	initWindow(argc, argv);
 }

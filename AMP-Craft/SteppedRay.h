@@ -6,7 +6,7 @@ class SteppedRay :
 	public Ray
 {
 public:
-	float direction_mul = 1;
+	float direction_mul = 1.0f;
 
 	SteppedRay() :Ray(Vec3(), Vec3()) {}
 
