@@ -10,8 +10,6 @@ const float camSensitvity = 0.001f;
 
 Camera* input_main_camera;
 
-unsigned int *input_view_width, *input_view_height;
-
 void KeyboardDepressed(unsigned char key, int x, int y) {
 	Vec3 camMove(0, 0, 0);
 
@@ -27,10 +25,10 @@ void KeyboardDepressed(unsigned char key, int x, int y) {
 }
 
 void MouseMove(int x, int y) {
-	int movex = *input_view_width - x, movey = *input_view_height - y;
+	int movex = input_main_camera->view_width/2 - x, movey = input_main_camera->view_height/2 - y;
 
 	input_main_camera->RotateCamera(Vec3(movey * camSensitvity, -movex * camSensitvity, 0));
 
-	glutWarpPointer(*input_view_width, *input_view_height);
+	glutWarpPointer(input_main_camera->view_width / 2, input_main_camera->view_height / 2);
 }
 #endif

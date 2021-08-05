@@ -2,7 +2,7 @@
 #define __Camera
 #include "Vec3.h"
 
-const float Pi = 3.14f, Pi2 = Pi * 2;
+#define Pi 3.14159265358979323f
 
 class Camera
 {
@@ -11,13 +11,12 @@ public:
 
 	float cosx, cosy, cosz, sinx, siny, sinz;
 
-
 	unsigned int view_width = 800, view_height = 600;
 
 	float half_vw = view_width / 2, half_vh = view_height / 2;
 
 	float angleToRadians(float angle) {
-		return angle * 3.14159265358979323f / 180.0f;
+		return angle * Pi / 180.0f;
 	}
 
 	float fov_angle = 90, fov_radians = angleToRadians(fov_angle), fov_half_angle = fov_angle / 2;
@@ -29,9 +28,9 @@ public:
 	{
 		Angle = rot + Angle + Vec3(Pi, Pi, Pi);
 
-		Angle.x = fmodf(Angle.x, Pi2) - Pi;
-		Angle.y = fmodf(Angle.y, Pi2) - Pi;
-		Angle.z = fmodf(Angle.z, Pi2) - Pi;
+		Angle.x = fmodf(Angle.x, 2 * Pi) - Pi;
+		Angle.y = fmodf(Angle.y, 2 * Pi) - Pi;
+		Angle.z = fmodf(Angle.z, 2 * Pi) - Pi;
 
 		cosx = cosf(Angle.x);
 		cosy = cosf(Angle.y);

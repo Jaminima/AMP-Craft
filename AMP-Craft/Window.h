@@ -10,47 +10,40 @@
 
 Renderer renderer;
 
-unsigned int defaultWidth = 800, defaultHeight = 600;
-unsigned int half_defaultWidth = 400, half_defaultHeight = 300;
-
 unsigned int getWindowHeight() {
-	return defaultHeight;
+	return renderer.camera.view_height;
 }
 
 unsigned int getWindowWidth() {
-	return defaultWidth;
+	return renderer.camera.view_width;
 }
 
 void drawFrame()
 {
-	Color* view = renderer.RenderRays();
-
-	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, view);
-
-	delete[] view;
+	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, renderer.View);
 
 	glutSwapBuffers();
 }
 
 void triggerReDraw()
 {
-	//glutPostRedisplay();
+	renderer.RenderRays();
+
+	glutPostRedisplay();
 }
 
 void initWindow(int argc, char** argv) {
 	glutInit(&argc, argv);
-	glutInitWindowSize(defaultWidth, defaultHeight);
+	glutInitWindowSize(getWindowWidth(), getWindowHeight());
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutCreateWindow("AMP-Craft");
 
 	glutDisplayFunc(drawFrame);
 	glutIdleFunc(triggerReDraw);
 
-	glutWarpPointer(half_defaultWidth, half_defaultHeight);
+	glutWarpPointer(getWindowWidth()/2, getWindowHeight()/2);
 
 	input_main_camera = &renderer.camera;
-	input_view_width = &half_defaultWidth;
-	input_view_height = &half_defaultHeight;
 
 	glutPassiveMotionFunc(MouseMove);
 	glutKeyboardFunc(KeyboardDepressed);
