@@ -11,25 +11,25 @@ using namespace concurrency;
 class Renderer
 {
 public:
-	RayCaster caster;
 	World world;
 	Camera camera;
 
 	Color* RenderRays() {
-		SteppedRay* rays = caster.CreateAllViewRays(camera);
-		Color* View = new Color[caster.view_height * caster.view_width];
+		Color* View = new Color[camera.view_height * camera.view_width];
 
-		array_view<SteppedRay, 2> rays_arr(caster.view_height, caster.view_width, rays);
-		array_view<Color, 2> view_arr(caster.view_height, caster.view_width, View);
+		Camera cam = camera;
+
+		array_view<Color, 2> view_arr(camera.view_height, camera.view_width, View);
 		array_view<Cube, 3> world_arr(blocks_deep, blocks_long, blocks_wide, world.cubeSet);
 
 		parallel_for_each(
 			view_arr.extent,
 			[=](index<2> idx)restrict(amp) {
+				SteppedRay r = RayCaster::CreateRay(idx[1], idx[0], cam);
 				Vec3 currentCube;
 
-				while (rays_arr[idx].direction_mul < 20) {
-					currentCube = rays_arr[idx].GetNextPoint();
+				while (r.direction_mul < 20) {
+					currentCube = r.GetNextPoint();
 
 					if (GetCube(currentCube.x, currentCube.y, currentCube.z, world_arr).type == Solid) {
 						view_arr[idx[0]][idx[1]].R = UINT_MAX;
@@ -40,10 +40,6 @@ public:
 				}
 			}
 		);
-
-		rays_arr.discard_data();
-
-		delete[] rays;
 
 		view_arr.synchronize();
 

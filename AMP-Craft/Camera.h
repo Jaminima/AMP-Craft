@@ -11,7 +11,21 @@ public:
 
 	float cosx, cosy, cosz, sinx, siny, sinz;
 
-	void RotateCamera(Vec3 rot)
+
+	unsigned int view_width = 800, view_height = 600;
+
+	float half_vw = view_width / 2, half_vh = view_height / 2;
+
+	float angleToRadians(float angle) {
+		return angle * 3.14159265358979323f / 180.0f;
+	}
+
+	float fov_angle = 90, fov_radians = angleToRadians(fov_angle), fov_half_angle = fov_angle / 2;
+
+		float fov_sin_max = sin(angleToRadians(fov_half_angle)),
+		fov_cos_max = cos(angleToRadians(fov_half_angle));
+
+	void RotateCamera(Vec3 rot) 
 	{
 		Angle = rot + Angle + Vec3(Pi, Pi, Pi);
 
@@ -35,7 +49,7 @@ public:
 
 	Camera() { RotateCamera(Vec3(0, 0, 0)); }
 
-	Vec3 RotateDirection(Vec3 dir)
+	Vec3 RotateDirection(Vec3 dir) restrict(amp, cpu)
 	{
 		dir = Vec3(
 			dir.x,

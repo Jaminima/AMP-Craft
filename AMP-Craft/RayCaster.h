@@ -3,36 +3,22 @@
 #include "SteppedRay.h"
 #include "Camera.h"
 
-class RayCaster
+namespace RayCaster
 {
-public:
-	float angleToRadians(float angle) {
-		return angle * 3.14159265358979323f / 180.0f;
-	}
-
-	float fov_angle = 90, fov_radians = angleToRadians(fov_angle), fov_half_angle = fov_angle / 2;
-
-	float fov_sin_max = sin(angleToRadians(fov_half_angle)),
-		fov_cos_max = cos(angleToRadians(fov_half_angle));
-
-	unsigned int view_width = 800, view_height = 600;
-
-	float half_vw = view_width / 2, half_vh = view_height / 2;
-
-	SteppedRay CreateRay(unsigned int vx, unsigned int vy, Camera cam) {
-		float vx_angle = -(fov_sin_max * (1 - (vx / half_vw)));
-		float vy_angle = -(fov_sin_max * (1 - (vy / half_vh)));
+	SteppedRay CreateRay(unsigned int vx, unsigned int vy, Camera cam) restrict(amp,cpu) {
+		float vx_angle = -(cam.fov_sin_max * (1 - (vx / cam.half_vw)));
+		float vy_angle = -(cam.fov_sin_max * (1 - (vy / cam.half_vh)));
 
 		return SteppedRay(cam.Position, cam.RotateDirection(Vec3(vx_angle, vy_angle, 1)));
 	}
 
 	SteppedRay* CreateAllViewRays(Camera cam) {
-		SteppedRay* rays = new SteppedRay[view_height * view_width];
-		for (unsigned int vx = 0, vy = 0; vy < view_height;) {
-			rays[(vy*view_width) + vx] = CreateRay(vx, vy, cam);
+		SteppedRay* rays = new SteppedRay[cam.view_height * cam.view_width];
+		for (unsigned int vx = 0, vy = 0; vy < cam.view_height;) {
+			rays[(vy*cam.view_width) + vx] = CreateRay(vx, vy, cam);
 
 			vx++;
-			if (vx == view_width) { vx = 0; vy++; }
+			if (vx == cam.view_width) { vx = 0; vy++; }
 		}
 		return rays;
 	}
