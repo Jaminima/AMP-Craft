@@ -27,11 +27,14 @@ void drawFrame()
 
 	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, view);
 
+	delete[] view;
+
 	glutSwapBuffers();
 }
 
 void triggerReDraw()
 {
+	//glutPostRedisplay();
 }
 
 void initWindow(int argc, char** argv) {
@@ -41,7 +44,7 @@ void initWindow(int argc, char** argv) {
 	glutCreateWindow("AMP-Craft");
 
 	glutDisplayFunc(drawFrame);
-	//glutIdleFunc(triggerReDraw);
+	glutIdleFunc(triggerReDraw);
 
 	glutWarpPointer(half_defaultWidth, half_defaultHeight);
 

@@ -14,15 +14,17 @@ int main(int argc, char** argv)
 	/*RayCaster r;
 	SteppedRay* rays = r.CreateAllViewRays();*/
 
+	array_view<Cube, 3> world_arr(blocks_deep, blocks_long, blocks_wide, renderer.world.cubeSet);
+
 	Cube c;
 	c.type = Solid;
-	renderer.world.SetCube(2, 2, 8, c);
-	renderer.world.SetCube(4, 2, 8, c);
-	renderer.world.SetCube(6, 2, 8, c);
+	SetCube(2, 2, 8, world_arr, c);
+	SetCube(4, 2, 8, world_arr, c);
+	SetCube(6, 2, 8, world_arr, c);
 
-	renderer.world.SetCube(1, 5, 8, c);
-	renderer.world.SetCube(3, 5, 8, c);
-	renderer.world.SetCube(5, 5, 8, c);
+	SetCube(1, 5, 8, world_arr, c);
+	SetCube(3, 5, 8, world_arr, c);
+	SetCube(5, 5, 8, world_arr, c);
 
 	initWindow(argc, argv);
 }

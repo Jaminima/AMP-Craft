@@ -8,17 +8,17 @@ class SteppedRay :
 public:
 	float direction_mul = 1.0f;
 
-	SteppedRay() :Ray(Vec3(), Vec3()) {}
+	SteppedRay() restrict(amp, cpu) :Ray(Vec3(), Vec3()) {}
 
-	SteppedRay(Vec3 _origin, Vec3 _direction) : Ray(_origin, _direction) {
+	SteppedRay(Vec3 _origin, Vec3 _direction) restrict(amp, cpu) : Ray(_origin, _direction) {
 		_direction.ensureNormalised();
 	}
 
-	Vec3 GetPoint() {
+	Vec3 GetPoint() restrict(amp, cpu) {
 		return (direction * direction_mul) + origin;
 	}
 
-	Vec3 CeilFloorAuto(Vec3 v) {
+	Vec3 CeilFloorAuto(Vec3 v) restrict(amp, cpu) {
 		if (direction.x > 0) v.x = ceilf(v.x);
 		else v.x = floorf(v.x);
 
@@ -31,7 +31,7 @@ public:
 		return v;
 	}
 
-	Vec3 GetNextPoint() {
+	Vec3 GetNextPoint() restrict(amp, cpu) {
 		Vec3 offset = GetPoint();
 		offset = CeilFloorAuto(offset);
 
