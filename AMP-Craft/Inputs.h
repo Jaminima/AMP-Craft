@@ -23,7 +23,7 @@ void KeyboardDepressed(unsigned char key, int x, int y) {
 }
 
 void MouseMove(int x, int y) {
-	int movex = input_main_camera.view_width/2 - x, movey = input_main_camera.view_height/2 - y;
+	int movex = input_main_camera.view_width / 2 - x, movey = input_main_camera.view_height / 2 - y;
 
 	input_main_camera.RotateCamera(Vec3(movey * camSensitvity, -movex * camSensitvity, 0));
 

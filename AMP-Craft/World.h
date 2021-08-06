@@ -9,8 +9,6 @@ using namespace concurrency;
 #define blocks_long  50
 #define blocks_deep  50
 
-
-
 Cube GetCube(unsigned int x, unsigned int y, unsigned int z, array_view<Cube, 3> world_arr) restrict(amp, cpu) {
 	if (x >= 0 && y >= 0 && z >= 0 && x < blocks_wide && y < blocks_deep && z < blocks_long) {
 		return world_arr[y][z][x];
@@ -39,7 +37,5 @@ public:
 			if (z == blocks_long) { z = 0; y++; }
 		}
 	}
-
-
 };
 #endif

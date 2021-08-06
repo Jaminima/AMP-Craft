@@ -41,9 +41,9 @@ void initWindow(int argc, char** argv) {
 	glutDisplayFunc(drawFrame);
 	glutIdleFunc(triggerReDraw);
 
-	glutWarpPointer(getWindowWidth()/2, getWindowHeight()/2);
+	glutWarpPointer(getWindowWidth() / 2, getWindowHeight() / 2);
 
-	//glutPassiveMotionFunc(MouseMove);
+	glutPassiveMotionFunc(MouseMove);
 	glutKeyboardFunc(KeyboardDepressed);
 
 	glutMainLoop();

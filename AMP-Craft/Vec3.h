@@ -18,7 +18,7 @@ public:
 		z = 0;
 	}
 
-	Vec3(float _x, float _y, float _z) restrict(amp,cpu) {
+	Vec3(float _x, float _y, float _z) restrict(amp, cpu) {
 		x = _x;
 		y = _y;
 		z = _z;

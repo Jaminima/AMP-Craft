@@ -7,7 +7,7 @@
 class Camera
 {
 public:
-	Vec3 Position = Vec3(5.0f,5.0f,0.0f), Angle = Vec3(0,0,0);
+	Vec3 Position = Vec3(5.0f, 5.0f, 0.0f), Angle = Vec3(0, 0, 0);
 
 	float cosx, cosy, cosz, sinx, siny, sinz;
 
@@ -21,10 +21,10 @@ public:
 
 	float fov_angle = 90, fov_radians = angleToRadians(fov_angle), fov_half_angle = fov_angle / 2;
 
-		float fov_sin_max = sin(angleToRadians(fov_half_angle)),
+	float fov_sin_max = sin(angleToRadians(fov_half_angle)),
 		fov_cos_max = cos(angleToRadians(fov_half_angle));
 
-	void RotateCamera(Vec3 rot) 
+	void RotateCamera(Vec3 rot)
 	{
 		Angle = rot + Angle + Vec3(Pi, Pi, Pi);
 

@@ -13,7 +13,7 @@ using namespace concurrency;
 namespace Renderer
 {
 	World world;
-	array_view<Cube, 3> world_arr = array_view<Cube,3>(blocks_deep, blocks_long, blocks_wide, world.cubeSet);
+	array_view<Cube, 3> world_arr = array_view<Cube, 3>(blocks_deep, blocks_long, blocks_wide, world.cubeSet);
 
 	Color* View = new Color[input_main_camera.view_height * input_main_camera.view_width];
 
@@ -39,7 +39,6 @@ namespace Renderer
 	}
 
 	void RenderRays(Camera cam) {
-
 		array_view<Cube, 3> _world_arr = world_arr;
 		array_view<Color, 2> _view_arr = array_view<Color, 2>(cam.view_height, cam.view_width, View);
 

@@ -8,7 +8,7 @@ class SteppedRay :
 public:
 	float direction_mul = 1.0f;
 
-	SteppedRay() restrict(amp, cpu) :Ray(Vec3(), Vec3()) {}
+	SteppedRay() restrict(amp, cpu) : Ray(Vec3(), Vec3()) {}
 
 	SteppedRay(Vec3 _origin, Vec3 _direction) restrict(amp, cpu) : Ray(_origin, _direction) {
 		_direction.ensureNormalised();
