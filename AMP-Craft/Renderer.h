@@ -5,6 +5,8 @@
 #include "Color.h"
 #include "Camera.h"
 
+#include <iostream>
+
 #include <amp.h>
 using namespace concurrency;
 
@@ -12,21 +14,17 @@ class Renderer
 {
 public:
 	World world;
-	Camera camera;
 	array_view<Cube, 3> world_arr = array_view<Cube,3>(blocks_deep, blocks_long, blocks_wide, world.cubeSet);
 
-	Color* View = new Color[camera.view_height * camera.view_width];
-	array_view<Color, 2> view_arr = array_view<Color, 2>(camera.view_height, camera.view_width, View);
+	Color* View = new Color[input_main_camera.view_height * input_main_camera.view_width];
 
-	void RenderRays() {
-
-		Camera cam = camera;
+	void RenderRays(Camera cam) {
 
 		array_view<Cube, 3> _world_arr = world_arr;
-		array_view<Color, 2> _view_arr = view_arr;
+		array_view<Color, 2> _view_arr = array_view<Color, 2>(cam.view_height, cam.view_width, View);
 
 		parallel_for_each(
-			view_arr.extent,
+			_view_arr.extent,
 			[=](index<2> idx)restrict(amp) {
 				SteppedRay r = RayCaster::CreateRay(idx[1], idx[0], cam);
 				Vec3 currentCube;
@@ -49,32 +47,7 @@ public:
 			}
 		);
 
-		view_arr.synchronize();
-
-		/*SteppedRay* ray;
-		Color* pixel;
-		Vec3 currentCube;
-
-		for (unsigned int vx = 0, vy = 0; vy < caster.view_height;) {
-			ray = &(rays[(vy * caster.view_width) + vx]);
-			pixel = &View[(vy * caster.view_width) + vx];
-
-			while (ray->direction_mul < 10) {
-				currentCube = ray->GetNextPoint();
-
-				if (world.GetCube(currentCube.x, currentCube.y, currentCube.z).type == Solid) {
-					pixel->R = UINT_MAX;
-					pixel->G = UINT_MAX;
-					pixel->B = UINT_MAX;
-					break;
-				}
-			}
-
-			vx++;
-			if (vx == caster.view_width) {
-				vx = 0; vy++;
-			}
-		}*/
+		_view_arr.synchronize();
 	}
 };
 

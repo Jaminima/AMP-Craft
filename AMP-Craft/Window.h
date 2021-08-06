@@ -8,26 +8,28 @@
 #include "Color.h"
 #include "Inputs.h"
 
-Renderer renderer;
+Renderer *renderer = new Renderer();
 
 unsigned int getWindowHeight() {
-	return renderer.camera.view_height;
+	return input_main_camera.view_height;
 }
 
 unsigned int getWindowWidth() {
-	return renderer.camera.view_width;
+	return input_main_camera.view_width;
 }
 
 void drawFrame()
 {
-	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, renderer.View);
+	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, renderer->View);
 
 	glutSwapBuffers();
 }
 
 void triggerReDraw()
 {
-	renderer.RenderRays();
+	renderer->RenderRays(input_main_camera);
+
+	printf("Frame");
 
 	glutPostRedisplay();
 }
@@ -43,9 +45,7 @@ void initWindow(int argc, char** argv) {
 
 	glutWarpPointer(getWindowWidth()/2, getWindowHeight()/2);
 
-	input_main_camera = &renderer.camera;
-
-	glutPassiveMotionFunc(MouseMove);
+	//glutPassiveMotionFunc(MouseMove);
 	glutKeyboardFunc(KeyboardDepressed);
 
 	glutMainLoop();

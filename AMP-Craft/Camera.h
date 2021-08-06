@@ -69,4 +69,6 @@ public:
 	}
 };
 
+Camera input_main_camera;
+
 #endif
