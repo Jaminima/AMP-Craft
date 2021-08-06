@@ -25,7 +25,6 @@ void drawFrame()
 
 void triggerReDraw()
 {
-	input_main_camera.MoveCamera(Vec3(0.1f,0,0));
 	Renderer::RenderRays(input_main_camera);
 
 	printf("Frame");
