@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 	/*RayCaster r;
 	SteppedRay* rays = r.CreateAllViewRays();*/
 
-	array_view<Cube, 3> world_arr(blocks_deep, blocks_long, blocks_wide, renderer->world.cubeSet);
+	array_view<Cube, 3> world_arr(blocks_deep, blocks_long, blocks_wide, Renderer::world.cubeSet);
 
 	Cube c;
 	c.type = Solid;

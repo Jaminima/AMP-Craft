@@ -8,8 +8,6 @@
 #include "Color.h"
 #include "Inputs.h"
 
-Renderer *renderer = new Renderer();
-
 unsigned int getWindowHeight() {
 	return input_main_camera.view_height;
 }
@@ -20,14 +18,15 @@ unsigned int getWindowWidth() {
 
 void drawFrame()
 {
-	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, renderer->View);
+	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, Renderer::View);
 
 	glutSwapBuffers();
 }
 
 void triggerReDraw()
 {
-	renderer->RenderRays(input_main_camera);
+	input_main_camera.MoveCamera(Vec3(0.1f,0,0));
+	Renderer::RenderRays(input_main_camera);
 
 	printf("Frame");
 
