@@ -43,18 +43,18 @@ namespace Renderer
 		array_view<Cube, 3> _world_arr = world_arr;
 		array_view<Color, 2> _view_arr = array_view<Color, 2>(cam.view_height, cam.view_width, View);
 
-		/*parallel_for_each(
+		parallel_for_each(
 			_view_arr.extent,
 			[=](index<2> idx)restrict(amp) {
 				RenderRay(idx, _view_arr, _world_arr, cam);
 			}
-		);*/
+		);
 
-		for (unsigned int x = 0, y = 0; y < cam.view_height;) {
+		/*for (unsigned int x = 0, y = 0; y < cam.view_height;) {
 			RenderRay(index<2>(y, x), _view_arr, _world_arr, cam);
 			x++;
 			if (x == cam.view_width) { x = 0; y++; }
-		}
+		}*/
 
 		_view_arr.synchronize();
 	}
