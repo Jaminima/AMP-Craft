@@ -10,6 +10,8 @@
 #include <amp.h>
 using namespace concurrency;
 
+#define d_max 20
+
 namespace Renderer
 {
 	World world;
@@ -21,8 +23,8 @@ namespace Renderer
 		SteppedRay r = RayCaster::CreateRay(idx[1], idx[0], cam);
 		Vec3 currentCube;
 
-		while (r.direction_mul < 20) {
-			currentCube = r.GetNextPoint();
+		while (r.direction_mul < d_max && r.steps < d_max * 3) {
+			currentCube = r.GetNextPoint(d_max);
 
 			if (GetCube(currentCube.x, currentCube.y, currentCube.z, _world_arr).type == Solid) {
 				_view_arr[idx[0]][idx[1]].R = UINT_MAX;
@@ -31,7 +33,7 @@ namespace Renderer
 				break;
 			}
 		}
-		if (r.direction_mul >= 20) {
+		if (r.direction_mul >= d_max) {
 			_view_arr[idx[0]][idx[1]].R = 0;
 			_view_arr[idx[0]][idx[1]].G = 0;
 			_view_arr[idx[0]][idx[1]].B = 0;

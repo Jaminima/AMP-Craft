@@ -7,6 +7,7 @@ class SteppedRay :
 {
 public:
 	float direction_mul = 1.0f;
+	unsigned int steps = 0;
 
 	SteppedRay() restrict(amp, cpu) : Ray(Vec3(), Vec3()) {}
 
@@ -31,26 +32,27 @@ public:
 		return v;
 	}
 
-	Vec3 MinInfToMaxInf(Vec3 vec) restrict(amp, cpu) {
-		vec.x = vec.x == -INFINITY ? INFINITY : vec.x;
-		vec.y = vec.y == -INFINITY ? INFINITY : vec.y;
-		vec.z = vec.z == -INFINITY ? INFINITY : vec.z;
+	Vec3 ErrToInf(Vec3 vec, float d_max) restrict(amp, cpu) {
+		vec.x = vec.x > d_max || vec.x <= 0 ? INFINITY : vec.x;
+		vec.y = vec.y > d_max || vec.y <= 0 ? INFINITY : vec.y;
+		vec.z = vec.z > d_max || vec.z <= 0 ? INFINITY : vec.z;
 		return vec;
 	}
 
-	Vec3 GetNextPoint() restrict(amp, cpu) {
+	Vec3 GetNextPoint(float d_max) restrict(amp, cpu) {
 		Vec3 offset = GetPoint();
 		offset = CeilFloorAuto(offset);
 
 		Vec3 j = (offset - origin) / direction;
 
-		j = MinInfToMaxInf(j);
+		j = ErrToInf(j, d_max);
 
 		if (j.x <= j.y && j.x <= j.z) direction_mul = j.x;
 		if (j.y <= j.x && j.y <= j.z) direction_mul = j.y;
 		if (j.z <= j.x && j.z <= j.y) direction_mul = j.z;
 
 		direction_mul += 0.001f;
+		steps++;
 
 		return GetPoint();
 	}
