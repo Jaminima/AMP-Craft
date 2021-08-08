@@ -7,47 +7,44 @@
 #include "Renderer.h"
 #include "Color.h"
 #include "Inputs.h"
-
-Renderer renderer;
-
-unsigned int defaultWidth = 800, defaultHeight = 600;
-unsigned int half_defaultWidth = 400, half_defaultHeight = 300;
+#include "FPSTracker.h"
 
 unsigned int getWindowHeight() {
-	return defaultHeight;
+	return input_main_camera.view_height;
 }
 
 unsigned int getWindowWidth() {
-	return defaultWidth;
+	return input_main_camera.view_width;
 }
 
 void drawFrame()
 {
-	Color* view = renderer.RenderRays();
-
-	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, view);
+	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_BYTE, Renderer::View);
 
 	glutSwapBuffers();
 }
 
 void triggerReDraw()
 {
+	completion_future future = Renderer::RenderRays(input_main_camera);
+
+	FPSTracker::AddFPS();
+
+	future.wait();
+
+	glutPostRedisplay();
 }
 
 void initWindow(int argc, char** argv) {
 	glutInit(&argc, argv);
-	glutInitWindowSize(defaultWidth, defaultHeight);
+	glutInitWindowSize(getWindowWidth(), getWindowHeight());
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutCreateWindow("AMP-Craft");
 
 	glutDisplayFunc(drawFrame);
-	//glutIdleFunc(triggerReDraw);
+	glutIdleFunc(triggerReDraw);
 
-	glutWarpPointer(half_defaultWidth, half_defaultHeight);
-
-	input_main_camera = &renderer.camera;
-	input_view_width = &half_defaultWidth;
-	input_view_height = &half_defaultHeight;
+	glutWarpPointer(getWindowWidth() / 2, getWindowHeight() / 2);
 
 	glutPassiveMotionFunc(MouseMove);
 	glutKeyboardFunc(KeyboardDepressed);

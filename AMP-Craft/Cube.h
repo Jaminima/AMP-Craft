@@ -9,5 +9,7 @@ class Cube
 {
 public:
 	CubeType type = None;
+
+	Cube() restrict(amp, cpu) {}
 };
 #endif
