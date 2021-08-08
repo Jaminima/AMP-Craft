@@ -7,6 +7,7 @@
 #include "Renderer.h"
 #include "Color.h"
 #include "Inputs.h"
+#include "FPSTracker.h"
 
 unsigned int getWindowHeight() {
 	return input_main_camera.view_height;
@@ -25,9 +26,11 @@ void drawFrame()
 
 void triggerReDraw()
 {
-	Renderer::RenderRays(input_main_camera);
+	completion_future future = Renderer::RenderRays(input_main_camera);
 
-	printf("Frame");
+	FPSTracker::AddFPS();
+
+	future.wait();
 
 	glutPostRedisplay();
 }

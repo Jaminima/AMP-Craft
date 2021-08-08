@@ -18,6 +18,7 @@ namespace Renderer
 	array_view<Cube, 3> world_arr = array_view<Cube, 3>(blocks_deep, blocks_long, blocks_wide, world.cubeSet);
 
 	Color* View = new Color[input_main_camera.view_height * input_main_camera.view_width];
+	array_view<Color, 2> view_arr = array_view<Color, 2>(input_main_camera.view_height, input_main_camera.view_width, View);
 
 	void RenderRay(index<2> idx, array_view<Color, 2> _view_arr, array_view<Cube, 3> _world_arr, Camera cam) restrict(amp, cpu) {
 		SteppedRay r = RayCaster::CreateRay(idx[1], idx[0], cam);
@@ -40,9 +41,9 @@ namespace Renderer
 		}
 	}
 
-	void RenderRays(Camera cam) {
+	completion_future RenderRays(Camera cam) {
 		array_view<Cube, 3> _world_arr = world_arr;
-		array_view<Color, 2> _view_arr = array_view<Color, 2>(cam.view_height, cam.view_width, View);
+		array_view<Color, 2> _view_arr = view_arr;
 
 		parallel_for_each(
 			_view_arr.extent,
@@ -57,7 +58,7 @@ namespace Renderer
 			if (x == cam.view_width) { x = 0; y++; }
 		}*/
 
-		_view_arr.synchronize();
+		return _view_arr.synchronize_async();
 	}
 };
 
