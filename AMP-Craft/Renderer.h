@@ -23,11 +23,13 @@ namespace Renderer
 	void RenderRay(index<2> idx, array_view<Color, 2> _view_arr, array_view<Cube, 3> _world_arr, Camera cam) restrict(amp, cpu) {
 		SteppedRay r = RayCaster::CreateRay(idx[1], idx[0], cam);
 		Vec3 currentCube;
+		Cube cubeObj;
 
 		while (r.direction_mul < d_max && r.steps < d_max * 3) {
 			currentCube = r.GetNextPoint(d_max);
+			cubeObj = GetCube(currentCube.x, currentCube.y, currentCube.z, _world_arr);
 
-			if (GetCube(currentCube.x, currentCube.y, currentCube.z, _world_arr).type == Solid) {
+			if (cubeObj.type != None) {
 				_view_arr[idx[0]][idx[1]] = Color(255, 255, 255);
 				break;
 			}
