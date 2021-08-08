@@ -19,7 +19,7 @@ unsigned int getWindowWidth() {
 
 void drawFrame()
 {
-	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_INT, Renderer::View);
+	glDrawPixels(getWindowWidth(), getWindowHeight(), GL_RGBA, GL_UNSIGNED_BYTE, Renderer::View);
 
 	glutSwapBuffers();
 }

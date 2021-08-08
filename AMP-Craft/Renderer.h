@@ -28,16 +28,12 @@ namespace Renderer
 			currentCube = r.GetNextPoint(d_max);
 
 			if (GetCube(currentCube.x, currentCube.y, currentCube.z, _world_arr).type == Solid) {
-				_view_arr[idx[0]][idx[1]].R = UINT_MAX;
-				_view_arr[idx[0]][idx[1]].G = UINT_MAX;
-				_view_arr[idx[0]][idx[1]].B = UINT_MAX;
+				_view_arr[idx[0]][idx[1]] = Color(255, 255, 255);
 				break;
 			}
 		}
 		if (r.direction_mul >= d_max) {
-			_view_arr[idx[0]][idx[1]].R = 0;
-			_view_arr[idx[0]][idx[1]].G = 0;
-			_view_arr[idx[0]][idx[1]].B = 0;
+			_view_arr[idx[0]][idx[1]] = Color();
 		}
 	}
 
