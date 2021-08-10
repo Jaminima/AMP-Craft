@@ -5,12 +5,12 @@
 #include <amp.h>
 using namespace concurrency;
 
-#define blocks_wide  50
-#define blocks_long  50
-#define blocks_deep  50
+#define chunk_width  16
+#define chunk_height  16
+#define chunk_length  16
 
 Cube GetCube(unsigned int x, unsigned int y, unsigned int z, array_view<Cube, 3> world_arr) restrict(amp, cpu) {
-	if (x >= 0 && y >= 0 && z >= 0 && x < blocks_wide && y < blocks_deep && z < blocks_long) {
+	if (x >= 0 && y >= 0 && z >= 0 && x < chunk_width && y < chunk_height && z < chunk_length) {
 		return world_arr[y][z][x];
 	}
 	else return Cube();
@@ -27,14 +27,14 @@ public:
 	Cube* cubeSet;
 
 	World() {
-		cubeSet = new Cube[blocks_deep * blocks_long * blocks_wide];
-		array_view<Cube, 3> world_arr(blocks_deep, blocks_long, blocks_wide, cubeSet);
+		cubeSet = new Cube[chunk_width * chunk_height * chunk_length];
+		array_view<Cube, 3> world_arr(chunk_height, chunk_length, chunk_width, cubeSet);
 
-		for (unsigned int x = 0, y = 0, z = 0; y < blocks_deep;) {
+		for (unsigned int x = 0, y = 0, z = 0; y < chunk_height;) {
 			SetCube(x, y, z, world_arr, Cube());
 			x++;
-			if (x == blocks_wide) { x = 0; z++; }
-			if (z == blocks_long) { z = 0; y++; }
+			if (x == chunk_width) { x = 0; z++; }
+			if (z == chunk_length) { z = 0; y++; }
 		}
 	}
 };
