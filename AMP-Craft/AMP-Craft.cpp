@@ -26,9 +26,9 @@ bool pick_accelerator()
 
 int main(int argc, char** argv)
 {
-	pick_accelerator();
+	pick_accelerator();/*
 
-	array_view<Cube, 3> world_arr(blocks_deep, blocks_long, blocks_wide, Renderer::world.cubeSet);
+	array_view<Cube, 3> world_arr(chunk_height, chunk_length, chunk_width, Renderer::world.cubeSet);
 
 	Cube c;
 	c.type = Solid;
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 
 	SetCube(1, 5, 8, world_arr, c);
 	SetCube(3, 5, 8, world_arr, c);
-	SetCube(5, 5, 8, world_arr, c);
+	SetCube(5, 5, 8, world_arr, c);*/
 
 	initWindow(argc, argv);
 }

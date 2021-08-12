@@ -10,15 +10,20 @@
 #include <amp.h>
 using namespace concurrency;
 
-#define d_max 20
+#define d_max 40
 
 namespace Renderer
 {
 	World world;
-	array_view<Cube, 3> world_arr = array_view<Cube, 3>(blocks_deep, blocks_long, blocks_wide, world.cubeSet);
+	array_view<Cube, 3> world_arr = array_view<Cube, 3>(chunk_height, chunk_length, chunk_width, world.cubeSet);
 
 	Color* View = new Color[input_main_camera.view_height * input_main_camera.view_width];
 	array_view<Color, 2> view_arr = array_view<Color, 2>(input_main_camera.view_height, input_main_camera.view_width, View);
+
+	float absf(float f)restrict(amp, cpu) {
+		if (f > 0) return f;
+		else return -1 * f;
+	}
 
 	void RenderRay(index<2> idx, array_view<Color, 2> _view_arr, array_view<Cube, 3> _world_arr, Camera cam) restrict(amp, cpu) {
 		SteppedRay r = RayCaster::CreateRay(idx[1], idx[0], cam);
