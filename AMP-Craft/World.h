@@ -33,8 +33,7 @@ public:
 		parallel_for_each(
 			_world_arr.extent,
 			[=](index<3> idx) restrict(amp) {
-				if (idx[0] > chunk_height / 2) _world_arr[idx] = Cube();
-				else _world_arr[idx] = Cube(Solid);
+				if (idx[0] < chunk_height / 2) _world_arr[idx] = Cube(Solid, Color(255,255*(idx[1]%2),255 * (idx[2] % 2)));
 			}
 		);
 

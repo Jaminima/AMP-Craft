@@ -35,7 +35,7 @@ namespace Renderer
 			cubeObj = GetCube(currentCube.x, currentCube.y, currentCube.z, _world_arr);
 
 			if (cubeObj.type != None) {
-				_view_arr[idx[0]][idx[1]] = Color(255, 255, 255);
+				_view_arr[idx[0]][idx[1]] = cubeObj.mainCol;
 				break;
 			}
 		}
