@@ -38,16 +38,7 @@ namespace Renderer
 			if (tri.textureId != INFINITE) {
 				Vec3 p = tri.GetIntersectFromT(closestT, r);
 
-				Vec3 diff = tri.P3 - tri.P2, diffAlt = tri.P3 - tri.P1;
-
-				if (diff.x < diffAlt.x) diff.x = diffAlt.x;
-				if (diff.y < diffAlt.y) diff.y = diffAlt.y;
-				if (diff.z < diffAlt.z) diff.z = diffAlt.z;
-
-				Vec3 r = tri.P3 - p;
-				Vec3 ra = r / diff;
-
-				return _texture_arr[tri.textureId][ra.y * 100][ra.x * 100];
+				return _texture_arr[tri.textureId][tri.GetTexturePoint(p)];
 			}
 			else return tri.mainColor;
 		}

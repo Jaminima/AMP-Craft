@@ -37,6 +37,20 @@ public:
 		textureId = _textureId;
 	}
 
+	index<2> GetTexturePoint(Vec3 intersect)  restrict(amp, cpu) {
+		Vec3 p = intersect;
+		Vec3 diff = P3 - P2, diffAlt = P3 - P1;
+
+		if (diff.x < diffAlt.x) diff.x = diffAlt.x;
+		if (diff.y < diffAlt.y) diff.y = diffAlt.y;
+		if (diff.z < diffAlt.z) diff.z = diffAlt.z;
+
+		Vec3 r = P3 - p;
+		Vec3 ra = r / diff;
+
+		return index<2>(ra.y * 100, ra.x * 100);
+	}
+
 	//Using Möller–Trumbore intersection algorithm https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
 	float ComputeT(Ray r) restrict(amp, cpu) {
 		Vec3 edge1 = P2 - P1,
