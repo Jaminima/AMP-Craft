@@ -1,6 +1,7 @@
 #ifndef __Triangle
 #define __Triangle
 #include "Vec3.h"
+#include "Color.h"
 #include "Ray.h"
 
 #define Epsilon 0.0000001f
@@ -8,6 +9,7 @@
 class Triangle {
 public:
 	Vec3 P1, P2, P3;
+	Color mainColor;
 
 	Triangle() restrict(amp,cpu) {
 
@@ -17,6 +19,14 @@ public:
 		P1 = _P1;
 		P2 = _P2;
 		P3 = _P3;
+		mainColor = Color(255, 255, 255);
+	}
+
+	Triangle(Vec3 _P1, Vec3 _P2, Vec3 _P3, Color _c) restrict(amp, cpu) {
+		P1 = _P1;
+		P2 = _P2;
+		P3 = _P3;
+		mainColor = _c;
 	}
 
 	//Using Möller–Trumbore intersection algorithm https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm

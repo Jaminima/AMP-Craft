@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Window.h"
+#include <stdlib.h>
 
 bool pick_accelerator()
 {
@@ -24,11 +25,21 @@ bool pick_accelerator()
 	return success;
 }
 
+float posRand() {
+	return (rand() % 1000) / 10;
+}
+
 int main(int argc, char** argv)
 {
 	pick_accelerator();
 
-	Triangle_Manager::RegisterTriangle(Triangle(Vec3(0,0, 5), Vec3(1, 0, 5), Vec3(1, 1, 5)));
+	srand(50);
+
+	for (int i = 0; i < 20; i++) {
+		Triangle_Manager::RegisterTriangle(Triangle(Vec3(posRand(), posRand(), posRand()), Vec3(posRand(), posRand(), posRand()), Vec3(posRand(), posRand(), posRand()),Color(rand()%255,rand()%255,rand()%255)));
+	}
+
+	//Triangle_Manager::RegisterTriangle(Triangle(Vec3(0,0, 5), Vec3(1, 0, 5), Vec3(1, 1, 5), Color(255,0,0)));
 
 	initWindow(argc, argv);
 }

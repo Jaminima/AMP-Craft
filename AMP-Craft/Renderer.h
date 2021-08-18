@@ -11,8 +11,6 @@
 #include <amp.h>
 using namespace concurrency;
 
-#define d_max 40
-
 namespace Renderer
 {
 	Color* View = new Color[input_main_camera.view_height * input_main_camera.view_width];
@@ -26,7 +24,7 @@ namespace Renderer
 			Triangle tri = _tri_arr[i];
 			float t = tri.ComputeT(r);
 			if (tri.ValidT(t)) {
-				return Color(255, 255, 255);
+				return tri.mainColor;
 			}
 		}
 		return Color(0, 0, 0);
