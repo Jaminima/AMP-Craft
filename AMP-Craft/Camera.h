@@ -7,7 +7,7 @@
 class Camera
 {
 public:
-	Vec3 Position = Vec3(5.0f, 20.0f, 0.0f), Angle = Vec3(0, 0, 0);
+	Vec3 Position = Vec3(0.0f, 0.0f, 0.0f), Angle = Vec3(0, 0, 0);
 
 	float cosx, cosy, cosz, sinx, siny, sinz;
 

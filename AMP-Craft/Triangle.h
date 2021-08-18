@@ -20,7 +20,7 @@ public:
 	}
 
 	//Using Möller–Trumbore intersection algorithm https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
-	float ComputeT(Ray r) {
+	float ComputeT(Ray r) restrict(amp, cpu) {
 		Vec3 edge1 = P2 - P1,
 			edge2 = P3 - P1;
 
@@ -49,11 +49,11 @@ public:
 		return t;
 	}
 
-	bool ValidT(float t) {
+	bool ValidT(float t) restrict(amp, cpu) {
 		return t > Epsilon;
 	}
 
-	Vec3 GetIntersectFromT(float t, Ray r) {
+	Vec3 GetIntersectFromT(float t, Ray r) restrict(amp, cpu) {
 		return r.origin + r.direction * t;
 	}
 };
