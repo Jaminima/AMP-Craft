@@ -5,6 +5,7 @@
 #include "Camera.h"
 
 #include "Triangle-Mananger.h"
+#include "TextureManager.h"
 
 #include <iostream>
 
@@ -16,7 +17,7 @@ namespace Renderer
 	Color* View = new Color[input_main_camera.view_height * input_main_camera.view_width];
 	array_view<Color, 2> view_arr = array_view<Color, 2>(input_main_camera.view_height, input_main_camera.view_width, View);
 
-	Color RenderRay(index<2> idx, array_view<Triangle, 1> _tri_arr, unsigned int tri_size, Camera cam) restrict(amp, cpu) {
+	Color RenderRay(index<2> idx, array_view<Color, 3> _texture_arr, array_view<Triangle, 1> _tri_arr, unsigned int tri_size, Camera cam) restrict(amp, cpu) {
 		Ray r = RayCaster::CreateRay(idx[1], idx[0], cam);
 
 		float closestT = INFINITY;
@@ -32,18 +33,22 @@ namespace Renderer
 		}
 
 		if (closestIDX == INFINITE) return Color(0, 0, 0);
+		else if (_tri_arr[closestIDX].textureId != INFINITE) {
+			return _texture_arr[_tri_arr[closestIDX].textureId][0][0];
+		}
 		else return _tri_arr[closestIDX].mainColor;
 	}
 
 	completion_future RenderRays(Camera cam) {
 		array_view<Triangle, 1> _tri_arr = Triangle_Manager::triangleView;
 		array_view<Color, 2> _view_arr = view_arr;
+		array_view<Color, 3> _texture_arr = Texture_Manager::texture_arr;
 		unsigned int activeTriangles = Triangle_Manager::activeTriangles;
 
 		parallel_for_each(
 			_view_arr.extent,
 			[=](index<2> idx)restrict(amp) {
-				_view_arr[idx] = RenderRay(idx, _tri_arr,  activeTriangles, cam);
+				_view_arr[idx] = RenderRay(idx, _texture_arr, _tri_arr,  activeTriangles, cam);
 			}
 		);
 

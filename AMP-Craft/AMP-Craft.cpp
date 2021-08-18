@@ -42,7 +42,7 @@ int main(int argc, char** argv)
 		Triangle_Manager::RegisterTriangle(Triangle(Vec3(posRand(), posRand(), posRand()), Vec3(posRand(), posRand(), posRand()), Vec3(posRand(), posRand(), posRand()),Color(rand()%255,rand()%255,rand()%255)));
 	}*/
 
-	//Triangle_Manager::RegisterTriangle(Triangle(Vec3(0,0, 5), Vec3(1, 0, 5), Vec3(1, 1, 5), Color(255,0,0)));
+	Triangle_Manager::RegisterTriangle(Triangle(Vec3(0,0, 5), Vec3(1, 0, 5), Vec3(1, 1, 5), 0));
 
 	initWindow(argc, argv);
 }
