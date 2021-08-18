@@ -53,6 +53,20 @@ public:
 	Vec3 operator/(Vec3 offset) restrict(amp, cpu) {
 		return Vec3(x / offset.x, y / offset.y, z / offset.z);
 	}
+
+	float dotProduct(Vec3 V) restrict(amp, cpu)
+	{
+		return V.x * x + V.y * y + V.z * z;
+	}
+
+	Vec3 crossProduct(Vec3 V) restrict(amp, cpu)
+	{
+		Vec3 N(
+			y * V.z - z * V.y,
+			z * V.x - x * V.z,
+			x * V.y - y * V.x);
+		return N;
+	}
 };
 
 #endif // !__Vec3
