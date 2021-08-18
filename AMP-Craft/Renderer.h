@@ -33,10 +33,14 @@ namespace Renderer
 		}
 
 		if (closestIDX == INFINITE) return Color(0, 0, 0);
-		else if (_tri_arr[closestIDX].textureId != INFINITE) {
-			return _texture_arr[_tri_arr[closestIDX].textureId][0][0];
+		else {
+			Triangle tri = _tri_arr[closestIDX];
+			if (tri.textureId != INFINITE) {
+				Vec3 p = tri.GetIntersectFromT(closestT, r);
+				return _texture_arr[tri.textureId][tri.P3.y - p.y][tri.P3.x-p.x];
+			}
+			else return tri.mainColor;
 		}
-		else return _tri_arr[closestIDX].mainColor;
 	}
 
 	completion_future RenderRays(Camera cam) {
