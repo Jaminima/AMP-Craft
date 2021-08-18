@@ -1,52 +1,49 @@
 #ifndef __Renderer
 #define __Renderer
-#include "World.h"
 #include "RayCaster.h"
 #include "Color.h"
 #include "Camera.h"
+
+#include "Triangle-Mananger.h"
 
 #include <iostream>
 
 #include <amp.h>
 using namespace concurrency;
 
-#define d_max 20
-
 namespace Renderer
 {
-	World world;
-	array_view<Cube, 3> world_arr = array_view<Cube, 3>(blocks_deep, blocks_long, blocks_wide, world.cubeSet);
-
 	Color* View = new Color[input_main_camera.view_height * input_main_camera.view_width];
 	array_view<Color, 2> view_arr = array_view<Color, 2>(input_main_camera.view_height, input_main_camera.view_width, View);
 
-	void RenderRay(index<2> idx, array_view<Color, 2> _view_arr, array_view<Cube, 3> _world_arr, Camera cam) restrict(amp, cpu) {
-		SteppedRay r = RayCaster::CreateRay(idx[1], idx[0], cam);
-		Vec3 currentCube;
-		Cube cubeObj;
+	Color RenderRay(index<2> idx, array_view<Triangle, 1> _tri_arr, unsigned int tri_size, Camera cam) restrict(amp, cpu) {
+		Ray r = RayCaster::CreateRay(idx[1], idx[0], cam);
 
-		while (r.direction_mul < d_max && r.steps < d_max * 3) {
-			currentCube = r.GetNextPoint(d_max);
-			cubeObj = GetCube(currentCube.x, currentCube.y, currentCube.z, _world_arr);
-
-			if (cubeObj.type != None) {
-				_view_arr[idx[0]][idx[1]] = Color(255, 255, 255);
-				break;
+		float closestT = INFINITY;
+		unsigned int closestIDX = INFINITE;
+		
+		for (unsigned int i = 0; i < tri_size; i++) {
+			Triangle tri = _tri_arr[i];
+			float t = tri.ComputeT(r);
+			if (tri.ValidT(t) && t < closestT) {
+				closestIDX = i;
+				closestT = t;
 			}
 		}
-		if (r.direction_mul >= d_max) {
-			_view_arr[idx[0]][idx[1]] = Color();
-		}
+
+		if (closestIDX == INFINITE) return Color(0, 0, 0);
+		else return _tri_arr[closestIDX].mainColor;
 	}
 
 	completion_future RenderRays(Camera cam) {
-		array_view<Cube, 3> _world_arr = world_arr;
+		array_view<Triangle, 1> _tri_arr = Triangle_Manager::triangleView;
 		array_view<Color, 2> _view_arr = view_arr;
+		unsigned int activeTriangles = Triangle_Manager::activeTriangles;
 
 		parallel_for_each(
 			_view_arr.extent,
 			[=](index<2> idx)restrict(amp) {
-				RenderRay(idx, _view_arr, _world_arr, cam);
+				_view_arr[idx] = RenderRay(idx, _tri_arr,  activeTriangles, cam);
 			}
 		);
 

@@ -43,25 +43,16 @@
     <ClInclude Include="..\packages\freeglut.2.8.1.15\build\native\include\GL\glut.h">
       <Filter>Header Files\GL</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Vec3.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Header Files\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="RayCaster.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="SteppedRay.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
@@ -78,6 +69,12 @@
     </ClInclude>
     <ClInclude Include="FPSTracker.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle-Mananger.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

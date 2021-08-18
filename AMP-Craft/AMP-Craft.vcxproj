@@ -148,16 +148,15 @@
     <ClInclude Include="..\packages\freeglut.2.8.1.15\build\native\include\GL\glut.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="Cube.h" />
     <ClInclude Include="FPSTracker.h" />
     <ClInclude Include="Inputs.h" />
     <ClInclude Include="RayCaster.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="SteppedRay.h" />
+    <ClInclude Include="Triangle-Mananger.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Window.h" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\packages\freeglut.redist.2.8.1.15\build\native\bin\v110\x64\Release\dynamic\freeglut.dll">

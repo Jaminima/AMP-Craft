@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Window.h"
+#include <stdlib.h>
 
 bool pick_accelerator()
 {
@@ -24,21 +25,21 @@ bool pick_accelerator()
 	return success;
 }
 
+float posRand() {
+	return (rand() % 1000) / 10;
+}
+
 int main(int argc, char** argv)
 {
 	pick_accelerator();
 
-	array_view<Cube, 3> world_arr(blocks_deep, blocks_long, blocks_wide, Renderer::world.cubeSet);
+	srand(50);
 
-	Cube c;
-	c.type = Solid;
-	SetCube(2, 2, 8, world_arr, c);
-	SetCube(4, 2, 8, world_arr, c);
-	SetCube(6, 2, 8, world_arr, c);
+	for (int i = 0; i < 20; i++) {
+		Triangle_Manager::RegisterTriangle(Triangle(Vec3(posRand(), posRand(), posRand()), Vec3(posRand(), posRand(), posRand()), Vec3(posRand(), posRand(), posRand()),Color(rand()%255,rand()%255,rand()%255)));
+	}
 
-	SetCube(1, 5, 8, world_arr, c);
-	SetCube(3, 5, 8, world_arr, c);
-	SetCube(5, 5, 8, world_arr, c);
+	//Triangle_Manager::RegisterTriangle(Triangle(Vec3(0,0, 5), Vec3(1, 0, 5), Vec3(1, 1, 5), Color(255,0,0)));
 
 	initWindow(argc, argv);
 }
