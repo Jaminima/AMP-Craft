@@ -37,7 +37,17 @@ namespace Renderer
 			Triangle tri = _tri_arr[closestIDX];
 			if (tri.textureId != INFINITE) {
 				Vec3 p = tri.GetIntersectFromT(closestT, r);
-				return _texture_arr[tri.textureId][tri.P3.y - p.y][tri.P3.x-p.x];
+
+				Vec3 diff = tri.P3 - tri.P2, diffAlt = tri.P3 - tri.P1;
+
+				if (diff.x < diffAlt.x) diff.x = diffAlt.x;
+				if (diff.y < diffAlt.y) diff.y = diffAlt.y;
+				if (diff.z < diffAlt.z) diff.z = diffAlt.z;
+
+				Vec3 r = tri.P3 - p;
+				Vec3 ra = r / diff;
+
+				return _texture_arr[tri.textureId][ra.y * 100][ra.x * 100];
 			}
 			else return tri.mainColor;
 		}
