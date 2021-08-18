@@ -10,6 +10,7 @@ class Triangle {
 public:
 	Vec3 P1, P2, P3;
 	Color mainColor;
+	unsigned int textureId=INFINITE;
 
 	Triangle() restrict(amp,cpu) {
 
@@ -27,6 +28,13 @@ public:
 		P2 = _P2;
 		P3 = _P3;
 		mainColor = _c;
+	}
+
+	Triangle(Vec3 _P1, Vec3 _P2, Vec3 _P3, unsigned int _textureId) restrict(amp, cpu) {
+		P1 = _P1;
+		P2 = _P2;
+		P3 = _P3;
+		textureId = _textureId;
 	}
 
 	//Using Möller–Trumbore intersection algorithm https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm

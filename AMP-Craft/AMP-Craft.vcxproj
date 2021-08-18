@@ -152,6 +152,8 @@
     <ClInclude Include="Inputs.h" />
     <ClInclude Include="RayCaster.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Triangle-Mananger.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vec3.h" />
