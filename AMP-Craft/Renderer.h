@@ -22,7 +22,7 @@ namespace Renderer
 
 		float closestT = INFINITY;
 		unsigned int closestIDX = INFINITE;
-		
+
 		for (unsigned int i = 0; i < tri_size; i++) {
 			Triangle tri = _tri_arr[i];
 			float t = tri.ComputeT(r);
@@ -53,7 +53,7 @@ namespace Renderer
 		parallel_for_each(
 			_view_arr.extent,
 			[=](index<2> idx)restrict(amp) {
-				_view_arr[idx] = RenderRay(idx, _texture_arr, _tri_arr,  activeTriangles, cam);
+				_view_arr[idx] = RenderRay(idx, _texture_arr, _tri_arr, activeTriangles, cam);
 			}
 		);
 

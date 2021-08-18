@@ -12,7 +12,6 @@ struct TriangleRegion {
 };
 
 namespace Triangle_Manager {
-
 	unsigned int activeTriangles = 0;
 
 	array_view<Triangle, 1> triangleView(MaxTriangles);
@@ -35,8 +34,6 @@ namespace Triangle_Manager {
 		region.end = activeTriangles;
 		return region;
 	}
-
-
 }
 
 #endif

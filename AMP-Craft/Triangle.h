@@ -6,14 +6,18 @@
 
 #define Epsilon 0.0000001f
 
+#include <amp.h>
+#include <amp_math.h>
+using namespace concurrency;
+using namespace fast_math;
+
 class Triangle {
 public:
 	Vec3 P1, P2, P3;
 	Color mainColor;
-	unsigned int textureId=INFINITE;
+	unsigned int textureId = INFINITE;
 
-	Triangle() restrict(amp,cpu) {
-
+	Triangle() restrict(amp, cpu) {
 	}
 
 	Triangle(Vec3 _P1, Vec3 _P2, Vec3 _P3) restrict(amp, cpu) {
@@ -37,7 +41,7 @@ public:
 		textureId = _textureId;
 	}
 
-	index<2> GetTexturePoint(Vec3 intersect)  restrict(amp, cpu) {
+	index<2> GetTexturePoint(Vec3 intersect) restrict(amp, cpu) {
 		Vec3 p = intersect;
 		Vec3 diff = P3 - P2, diffAlt = P3 - P1;
 
