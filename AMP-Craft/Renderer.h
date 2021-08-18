@@ -18,16 +18,21 @@ namespace Renderer
 
 	Color RenderRay(index<2> idx, array_view<Triangle, 1> _tri_arr, unsigned int tri_size, Camera cam) restrict(amp, cpu) {
 		Ray r = RayCaster::CreateRay(idx[1], idx[0], cam);
-		Vec3 currentCube;
+
+		float closestT = INFINITY;
+		unsigned int closestIDX = INFINITE;
 		
 		for (unsigned int i = 0; i < tri_size; i++) {
 			Triangle tri = _tri_arr[i];
 			float t = tri.ComputeT(r);
-			if (tri.ValidT(t)) {
-				return tri.mainColor;
+			if (tri.ValidT(t) && t < closestT) {
+				closestIDX = i;
+				closestT = t;
 			}
 		}
-		return Color(0, 0, 0);
+
+		if (closestIDX == INFINITE) return Color(0, 0, 0);
+		else return _tri_arr[closestIDX].mainColor;
 	}
 
 	completion_future RenderRays(Camera cam) {
